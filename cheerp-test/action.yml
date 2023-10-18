@@ -1,0 +1,30 @@
+name: "Run tests"
+description: "Run cheerp-utils tests"
+inputs:
+  flags:
+    description: "Flags to pass to run_tests.py"
+    required: true
+  compiler:
+    description: "Compiler to use for tests"
+    required: true
+    default: "/opt/cheerp/bin/clang++"
+  runtime:
+    description: "Runtime to use for tests"
+    required: true
+    defaut: "node"
+runs:
+  using: "composite"
+  steps:
+    - name: Download compiler
+      uses: actions/download-artifact@v3
+      with:
+        name: compiler
+    - name: Untar artifacts
+      run: tar -xvf cheerp-compiler.tar.gz -C /
+    - name: Checkout cheerp-utils
+        uses: actions/checkout@v3
+        with:
+          repository: 'leaningtech/cheerp-utils'
+    - name: Run tests
+      working-directory: ./tests
+      run: ./run_tests.py ${{ inputs.flags }} ${{ inputs.compiler }} ${{ inputs.runtime }}
