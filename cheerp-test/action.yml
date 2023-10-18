@@ -29,5 +29,5 @@ runs:
         ref: 'feat-libasan'
     - name: Run tests
       working-directory: ./tests
-      run: ./run_tests.py ${{ inputs.flags }} ${{ inputs.compiler }} ${{ inputs.runtime }}
+      run: ./run_tests.py ${{ inputs.flags }} ${{ inputs.compiler }} node
       shell: bash
