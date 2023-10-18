@@ -21,11 +21,13 @@ runs:
         name: compiler
     - name: Untar artifacts
       run: tar -xvf cheerp-compiler.tar.gz -C /
+      shell: bash
     - name: Checkout cheerp-utils
-        uses: actions/checkout@v3
-        with:
-          repository: 'Hyxogen/cheerp-utils'
-          ref: 'feat-libasan'
+      uses: actions/checkout@v3
+      with:
+        repository: 'Hyxogen/cheerp-utils'
+        ref: 'feat-libasan'
     - name: Run tests
       working-directory: ./tests
       run: ./run_tests.py ${{ inputs.flags }} ${{ inputs.compiler }} ${{ inputs.runtime }}
+      shell: bash
