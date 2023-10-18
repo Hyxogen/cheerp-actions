@@ -11,7 +11,7 @@ inputs:
   runtime:
     description: "Runtime to use for tests"
     required: true
-    defaut: "node"
+    default: "node"
 runs:
   using: "composite"
   steps:
@@ -29,5 +29,5 @@ runs:
         ref: 'feat-libasan'
     - name: Run tests
       working-directory: ./tests
-      run: ./run_tests.py ${{ inputs.flags }} ${{ inputs.compiler }} node
+      run: ./run_tests.py ${{ inputs.flags }} ${{ inputs.compiler }} ${{ inputs.runtime }}
       shell: bash
