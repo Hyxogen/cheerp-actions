@@ -1,6 +1,6 @@
 name: "Install libasan"
 description: "Install AddressSanitizer runtime libraries"
-input:
+inputs:
   path:
     description: "Where to install the runtime library"
     required: true
@@ -15,5 +15,5 @@ runs:
         ref: 'feat-libasan'
     - name: Build runtime
       working-directory: ./compiler-rt/lib
-      run: make install -j CHEERP_DEST=/opt/cheerp LINK_CMD=/opt/cheerp/bin/llvm-link CC=/opt/cheerp/bin/clang CXX=/opt/cheerp/bin/clang++ CHEERP_DEST="${{ inputs.path }}"
+      run: make install -j CHEERP_DEST="${{ inputs.path }}"
       shell: bash
