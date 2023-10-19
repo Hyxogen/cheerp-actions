@@ -5,6 +5,9 @@ inputs:
     description: "Where to install the runtime library"
     required: true
     default: "/opt/cheerp"
+  config:
+    description: "Build config of libasan"
+    required: true
 runs:
   using: "composite"
   steps:
@@ -15,5 +18,5 @@ runs:
         ref: 'feat-libasan'
     - name: Build runtime
       working-directory: ./compiler-rt/lib
-      run: make install -j CHEERP_DEST="${{ inputs.path }}"
+      run: make install -j config=${{ inputs.config }} CHEERP_DEST="${{ inputs.path }}"
       shell: bash
