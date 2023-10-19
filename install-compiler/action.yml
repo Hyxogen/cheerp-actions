@@ -1,0 +1,22 @@
+name: "Install cheerp-compiler"
+description: "Download and install the cheerp-compiler"
+inputs:
+  artifact:
+    description: "Name of the artifact to download"
+    required: true
+    default: "cheerp-compiler"
+runs:
+  using: "composite"
+  steps:
+    - name: Download compiler
+      uses: actions/download-artifact@v3
+      with:
+        name: ${{ inputs.artifact }}
+    - name: Untar artifacts
+      run: tar -xvf cheerp-compiler.tar.gz -C /
+      shell: bash
+    - name: Checkout cheerp-utils
+      uses: actions/checkout@v3
+      with:
+        repository: 'Hyxogen/cheerp-utils'
+        ref: 'feat-libasan'
