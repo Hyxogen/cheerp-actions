@@ -4,7 +4,7 @@ inputs:
   artifact:
     description: "Name of the artifact to download"
     required: true
-    default: "cheerp-compiler"
+    default: "compiler"
 runs:
   using: "composite"
   steps:
