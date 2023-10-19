@@ -16,3 +16,4 @@ runs:
     - name: Build runtime
       working-directory: ./compiler-rt/lib
       run: make install -j CHEERP_DEST="${{ inputs.path }}"
+      shell: bash
