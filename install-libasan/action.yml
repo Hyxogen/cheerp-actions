@@ -8,6 +8,10 @@ inputs:
   config:
     description: "Build config of libasan"
     required: true
+  ref:
+    description: "Reference to use for cheerp-compiler"
+    required: true
+    default: ${{ github.ref_name }}
 runs:
   using: "composite"
   steps:
@@ -15,8 +19,14 @@ runs:
       uses: actions/checkout@v3
       with:
         repository: "Hyxogen/cheerp-compiler"
-        ref: 'feat-libasan'
+        ref: ${{ inputs.ref_name }}
     - name: Build runtime
-      working-directory: ./compiler-rt/lib
-      run: make install -j config=${{ inputs.config }} CHEERP_DEST="${{ inputs.path }}"
+      working-directory: ./compiler-rt
+      run: |
+        cmake -B build -DCOMPILER_RT_DEFAULT_TARGET_TRIPLE=cheerp-leaningtech-webbrowser-wasm \
+          -DCMAKE_TOOLCHAIN_FILE="${{ inputs.path }}/share/cmake/Modules/CheerpWasmToolchain.cmake" \
+          -DCOMPILER_RT_SANITIZERS_TO_BUILD=asan -DCOMPILER_RT_BUILD_BUILTINS=Off -DCOMPILER_RT_BUILD_CRT=Off \
+          -DCOMPILER_RT_BUILD_GWP_ASAN=Off -DCOMPILER_RT_BUILD_LIBFUZZER=Off -DCOMPILER_RT_BUILD_MEMPROF=Off \
+          -DCOMPILER_RT_BUILD_ORC=Off -DCOMPILER_RT_BUILD_PROFILE=Off -DCMAKE_INSTALL_PREFIX="${{ inputs.path }}" .
+        make -C build install -j
       shell: bash
