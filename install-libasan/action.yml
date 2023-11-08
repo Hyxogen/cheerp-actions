@@ -28,5 +28,5 @@ runs:
           -DCOMPILER_RT_SANITIZERS_TO_BUILD=asan -DCOMPILER_RT_BUILD_BUILTINS=Off -DCOMPILER_RT_BUILD_CRT=Off \
           -DCOMPILER_RT_BUILD_GWP_ASAN=Off -DCOMPILER_RT_BUILD_LIBFUZZER=Off -DCOMPILER_RT_BUILD_MEMPROF=Off \
           -DCOMPILER_RT_BUILD_ORC=Off -DCOMPILER_RT_BUILD_PROFILE=Off -DCMAKE_INSTALL_PREFIX="${{ inputs.path }}" .
-        make -C build install -j VERBOSE=1
+        make -C build install -j
       shell: bash
