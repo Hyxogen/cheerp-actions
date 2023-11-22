@@ -23,10 +23,9 @@ runs:
     - name: Build runtime
       working-directory: ./compiler-rt
       run: |
-        cmake -B build -DCOMPILER_RT_DEFAULT_TARGET_TRIPLE=cheerp-leaningtech-webbrowser-wasm \
-          -DCMAKE_TOOLCHAIN_FILE="${{ inputs.path }}/share/cmake/Modules/CheerpWasmToolchain.cmake" \
-          -DCOMPILER_RT_SANITIZERS_TO_BUILD=asan -DCOMPILER_RT_BUILD_BUILTINS=Off -DCOMPILER_RT_BUILD_CRT=Off \
-          -DCOMPILER_RT_BUILD_GWP_ASAN=Off -DCOMPILER_RT_BUILD_LIBFUZZER=Off -DCOMPILER_RT_BUILD_MEMPROF=Off \
-          -DCOMPILER_RT_BUILD_ORC=Off -DCOMPILER_RT_BUILD_PROFILE=Off -DCMAKE_INSTALL_PREFIX="${{ inputs.path }}" .
+        cmake -B build -C CheerpCmakeConf.cmake . \
+          -DCOMPILER_RT_INCLUDE_TESTS=On -DCOMPILER_RT_CAN_EXECUTE_TESTS=On \
+          -DCOMPILER_RT_TEST_STANDALONE_BUILD_LIBS=Off -DCMAKE_INSTALL_PREFIX="${{ inputs.path }}" \
+          -DCMAKE_TOOLCHAIN_FILE="${{ inputs.path }}/share/cmake/Modules/CheerpWasmToolchain.cmake"
         make -C build install -j
       shell: bash
