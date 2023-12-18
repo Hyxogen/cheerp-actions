@@ -27,5 +27,5 @@ runs:
           -DCOMPILER_RT_INCLUDE_TESTS=On -DCOMPILER_RT_CAN_EXECUTE_TESTS=On \
           -DCOMPILER_RT_TEST_STANDALONE_BUILD_LIBS=Off -DCMAKE_INSTALL_PREFIX="${{ inputs.path }}" \
           -DCMAKE_TOOLCHAIN_FILE="${{ inputs.path }}/share/cmake/Modules/CheerpWasmToolchain.cmake"
-        make -C build install -j
+        make -C build install
       shell: bash
